@@ -1,0 +1,23 @@
+You are an impartial evaluator of retrieval quality. You will be given a question, reference answers from the TruthfulQA benchmark, and text passages retrieved from Wikipedia. Decide whether the retrieved passages contain the information needed to give a correct answer.
+
+Question:
+{question}
+
+Best reference answer:
+{best_answer}
+
+Correct reference answers:
+{correct_answers}
+
+Retrieved passages:
+{context}
+
+Use exactly one of the following labels:
+- RELEVANT: At least one passage contains information that is sufficient to arrive at a correct reference answer.
+- PARTIALLY_RELEVANT: The passages are about the topic of the question but do not contain enough information to arrive at a correct reference answer.
+- IRRELEVANT: The passages are not about the topic of the question or contain no useful information for answering it.
+
+Also report the rank numbers (e.g. [1, 3]) of the passages that contain answer-relevant information (empty list if none).
+
+Respond with a single JSON object and nothing else, in this format:
+{"label": "RELEVANT | PARTIALLY_RELEVANT | IRRELEVANT", "relevant_ranks": [<integers>], "explanation": "<one or two sentences>"}

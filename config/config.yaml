@@ -1,0 +1,96 @@
+# =============================================================================
+# Experiment configuration: RAG vs. No-RAG factual correctness (TruthfulQA)
+# =============================================================================
+# Every tunable parameter of the experiment lives in this file. Scripts read
+# it via src/config.py; nothing else is hard-coded. Pass another file with
+# `--config path/to/other.yaml` to run a variant without editing this one.
+#
+# All relative paths are resolved against the repository root.
+# =============================================================================
+
+experiment:
+  name: truthfulqa_rag_vs_norag
+  random_seed: 42                 # seeds question sampling + LLM `seed` param
+
+dataset:
+  name: truthfulqa
+  # TruthfulQA CSV pinned to an exact commit of the official repository
+  # (https://github.com/sylinrl/TruthfulQA, Jan-2025 version, 790 questions).
+  url: https://raw.githubusercontent.com/sylinrl/TruthfulQA/f6be04e52bbcb41d4d20daee6358231d4a5015d2/TruthfulQA.csv
+  sha256: b8d8ef1e12f98b4f2a9f47abc9765da0640b182b6c5d9b92f0c1a1f2f1e02e5c
+  raw_path: data/raw/TruthfulQA.csv
+  processed_path: data/processed/questions.jsonl
+  number_of_questions: 100        # sample size (same questions in both conditions)
+  # Only keep questions whose TruthfulQA `Source` is an English Wikipedia
+  # article, so the knowledge corpus can in principle contain the answer.
+  require_wikipedia_source: true
+
+corpus:
+  source: wikipedia_en
+  # Which Wikipedia articles form the corpus:
+  #   all_truthfulqa -> every Wikipedia article cited anywhere in TruthfulQA
+  #                     (includes distractor articles for unsampled questions)
+  #   sampled_only   -> only the articles cited by the sampled questions
+  scope: all_truthfulqa
+  # Articles are pinned to the latest revision at or before this timestamp,
+  # so re-running the download yields exactly the same text.
+  snapshot_timestamp: "2026-09-01T00:00:00Z"
+  api_url: https://en.wikipedia.org/w/api.php
+  user_agent: "TrierNLP-RAG-Experiment/1.0 (arjunradhasureshbabu@gmail.com)"
+  request_delay_seconds: 0.2      # politeness delay between Wikipedia API calls
+  documents_path: data/corpus/documents.jsonl
+  manifest_path: data/corpus/manifest.csv
+  chunks_path: data/corpus/chunks.jsonl
+
+retrieval:
+  embedding_model: sentence-transformers/multi-qa-MiniLM-L6-cos-v1
+  chunk_size: 200                 # words per chunk
+  chunk_overlap: 50               # words shared by consecutive chunks
+  min_chunk_words: 20             # drop tiny trailing fragments
+  top_k: 5
+  batch_size: 64
+  index_dir: data/index
+
+llm:
+  provider: openai                # "openai" (also works with OpenAI-compatible
+                                  # servers via base_url) or "mock" (offline test)
+  model: gpt-4.1-mini-2025-04-14  # pinned snapshot for reproducibility
+  base_url: null                  # e.g. http://localhost:11434/v1 for Ollama
+  api_key_env: OPENAI_API_KEY     # name of the environment variable
+  temperature: 0.0
+  max_tokens: 200
+  request_timeout_seconds: 60
+  max_retries: 5
+
+evaluation:
+  # The judge is deliberately a *different, stronger* model than the answerer
+  # to reduce self-preference bias. Same judge for both conditions.
+  provider: openai
+  model: gpt-4.1-2025-04-14
+  base_url: null
+  api_key_env: OPENAI_API_KEY
+  temperature: 0.0
+  max_tokens: 300
+  request_timeout_seconds: 60
+  max_retries: 5
+  # Also ask the judge whether the retrieved context contains the answer
+  # (retrieval-relevance analysis). Costs one extra judge call per question.
+  judge_context_relevance: true
+  # Secondary, judge-independent check (TruthfulQA "max-similarity" idea):
+  # an answer counts as semantically correct if it is more similar to the
+  # closest correct reference than to the closest incorrect reference.
+  semantic_check: true
+  semantic_model: sentence-transformers/all-MiniLM-L6-v2
+
+prompts:
+  system: prompts/system.txt
+  no_rag: prompts/no_rag.txt
+  rag: prompts/rag.txt
+  judge_answer: prompts/judge_answer.txt
+  judge_context: prompts/judge_context.txt
+
+paths:
+  results_raw: results/raw
+  results_processed: results/processed
+  results_tables: results/tables
+  results_figures: results/figures

@@ -1,0 +1,216 @@
+{
+  "generated_at": "2026-09-29T01:26:42+00:00",
+  "MOCK_RESULTS_NOT_REAL": false,
+  "n_questions": 100,
+  "n_paired": 100,
+  "excluded_question_ids": [],
+  "generation_models": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "judge_model": "gpt-4.1-2025-04-14",
+  "primary_strict": {
+    "n": 100,
+    "no_rag": {
+      "n": 100,
+      "n_correct": 62,
+      "accuracy": 0.62,
+      "ci_low": 0.5220975529551107,
+      "ci_high": 0.7090240074752127
+    },
+    "rag": {
+      "n": 100,
+      "n_correct": 62,
+      "accuracy": 0.62,
+      "ci_low": 0.5220975529551107,
+      "ci_high": 0.7090240074752127
+    },
+    "abs_diff_pp": 0.0,
+    "rel_change_pct": 0.0,
+    "paired_table": {
+      "both_correct": 46,
+      "no_rag_only_correct": 16,
+      "rag_only_correct": 16,
+      "both_incorrect": 22
+    },
+    "mcnemar": {
+      "discordant_pairs": 32,
+      "p_value": 1.0,
+      "statistic_b": 16,
+      "statistic_c": 16,
+      "note": ""
+    },
+    "diff_ci_pp": [
+      -10.999999999999998,
+      10.999999999999998
+    ]
+  },
+  "sensitivity_lenient": {
+    "n": 100,
+    "no_rag": {
+      "n": 100,
+      "n_correct": 79,
+      "accuracy": 0.79,
+      "ci_low": 0.7002003116591013,
+      "ci_high": 0.858343459380847
+    },
+    "rag": {
+      "n": 100,
+      "n_correct": 77,
+      "accuracy": 0.77,
+      "ci_low": 0.6784561697712622,
+      "ci_high": 0.8415673411969654
+    },
+    "abs_diff_pp": -2.0000000000000018,
+    "rel_change_pct": -2.531645569620255,
+    "paired_table": {
+      "both_correct": 64,
+      "no_rag_only_correct": 15,
+      "rag_only_correct": 13,
+      "both_incorrect": 8
+    },
+    "mcnemar": {
+      "discordant_pairs": 28,
+      "p_value": 0.8505540192127228,
+      "statistic_b": 15,
+      "statistic_c": 13,
+      "note": ""
+    },
+    "diff_ci_pp": [
+      -12.00000000000001,
+      8.000000000000007
+    ]
+  },
+  "sensitivity_decisive_only": {
+    "n": 98,
+    "no_rag": {
+      "n": 98,
+      "n_correct": 62,
+      "accuracy": 0.6326530612244898,
+      "ci_low": 0.5338875533526599,
+      "ci_high": 0.7214112247783229
+    },
+    "rag": {
+      "n": 98,
+      "n_correct": 62,
+      "accuracy": 0.6326530612244898,
+      "ci_low": 0.5338875533526599,
+      "ci_high": 0.7214112247783229
+    },
+    "abs_diff_pp": 0.0,
+    "rel_change_pct": 0.0,
+    "paired_table": {
+      "both_correct": 46,
+      "no_rag_only_correct": 16,
+      "rag_only_correct": 16,
+      "both_incorrect": 20
+    },
+    "mcnemar": {
+      "discordant_pairs": 32,
+      "p_value": 1.0,
+      "statistic_b": 16,
+      "statistic_c": 16,
+      "note": ""
+    },
+    "diff_ci_pp": [
+      -11.22448979591837,
+      11.22448979591837
+    ]
+  },
+  "secondary_semantic": {
+    "n": 100,
+    "no_rag": {
+      "n": 100,
+      "n_correct": 55,
+      "accuracy": 0.55,
+      "ci_low": 0.45244602997442135,
+      "ci_high": 0.6438546202048803
+    },
+    "rag": {
+      "n": 100,
+      "n_correct": 58,
+      "accuracy": 0.58,
+      "ci_low": 0.4820648670304296,
+      "ci_high": 0.6720161732564526
+    },
+    "abs_diff_pp": 2.9999999999999916,
+    "rel_change_pct": 5.454545454545439,
+    "paired_table": {
+      "both_correct": 42,
+      "no_rag_only_correct": 13,
+      "rag_only_correct": 16,
+      "both_incorrect": 29
+    },
+    "mcnemar": {
+      "discordant_pairs": 29,
+      "p_value": 0.711071103811264,
+      "statistic_b": 13,
+      "statistic_c": 16,
+      "note": ""
+    },
+    "diff_ci_pp": [
+      -7.9999999999999964,
+      14.000000000000002
+    ]
+  },
+  "retrieval": {
+    "n": 100,
+    "source_hit_rate": 0.7938144329896907,
+    "n_source_hit": 77,
+    "n_source_known": 97,
+    "mean_best_rank_of_source_article_when_hit": 1.2077922077922079,
+    "mean_top1_score": 0.56977432,
+    "mean_topk_score": 0.53130918,
+    "context_label_counts": {
+      "RELEVANT": 58,
+      "PARTIALLY_RELEVANT": 22,
+      "IRRELEVANT": 20
+    }
+  },
+  "config": {
+    "experiment": {
+      "name": "truthfulqa_rag_vs_norag",
+      "random_seed": 42
+    },
+    "dataset": {
+      "name": "truthfulqa",
+      "url": "https://raw.githubusercontent.com/sylinrl/TruthfulQA/f6be04e52bbcb41d4d20daee6358231d4a5015d2/TruthfulQA.csv",
+      "sha256": "b8d8ef1e12f98b4f2a9f47abc9765da0640b182b6c5d9b92f0c1a1f2f1e02e5c",
+      "raw_path": "data/raw/TruthfulQA.csv",
+      "processed_path": "data/processed/questions.jsonl",
+      "number_of_questions": 100,
+      "require_wikipedia_source": true
+    },
+    "retrieval": {
+      "embedding_model": "sentence-transformers/multi-qa-MiniLM-L6-cos-v1",
+      "chunk_size": 200,
+      "chunk_overlap": 50,
+      "min_chunk_words": 20,
+      "top_k": 5,
+      "batch_size": 64,
+      "index_dir": "data/index"
+    },
+    "llm": {
+      "provider": "openai",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "base_url": null,
+      "api_key_env": "OPENAI_API_KEY",
+      "temperature": 0.0,
+      "max_tokens": 200,
+      "request_timeout_seconds": 60,
+      "max_retries": 5
+    },
+    "evaluation": {
+      "provider": "openai",
+      "model": "gpt-4.1-2025-04-14",
+      "base_url": null,
+      "api_key_env": "OPENAI_API_KEY",
+      "temperature": 0.0,
+      "max_tokens": 300,
+      "request_timeout_seconds": 60,
+      "max_retries": 5,
+      "judge_context_relevance": true,
+      "semantic_check": true,
+      "semantic_model": "sentence-transformers/all-MiniLM-L6-v2"
+    }
+  }
+}

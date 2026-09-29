@@ -1,0 +1,25 @@
+{
+  "evaluated_at": "2026-09-29T01:25:51+00:00",
+  "judge_id": "349da175f867",
+  "judge_settings": {
+    "provider": "openai",
+    "model": "gpt-4.1-2025-04-14",
+    "base_url": null,
+    "temperature": 0.0,
+    "max_tokens": 300,
+    "seed": 42
+  },
+  "judge_system_prompt": "You are a meticulous, impartial evaluator. You always reply with valid JSON.",
+  "new_judge_calls": 300,
+  "n_questions": 100,
+  "n_paired": 100,
+  "excluded_question_ids": [],
+  "n_judge_errors": 0,
+  "generation_providers": [
+    "openai"
+  ],
+  "generation_models": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "semantic_model": "sentence-transformers/all-MiniLM-L6-v2"
+}

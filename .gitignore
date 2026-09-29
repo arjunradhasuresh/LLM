@@ -1,0 +1,25 @@
+# Secrets — never commit API keys
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Regenerable binary artefacts (rebuilt by src.retrieval.build_index)
+data/index/
+
+# Backups created by `--overwrite`
+results/raw/*.bak_*
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+.idea/
